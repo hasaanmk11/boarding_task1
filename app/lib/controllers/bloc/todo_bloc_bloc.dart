@@ -39,8 +39,7 @@ class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
       add(LoadTasks());
     });
 
-    // Update task completion status
-    on<UpdateTask>((event, emit) async {
+    on<UpdateTaskStatus>((event, emit) async {
       try {
         await FirebaseFirestore.instance
             .collection('todo')
@@ -59,7 +58,22 @@ class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
             .collection('todo')
             .doc(event.id)
             .delete();
-        add(LoadTasks()); // Reload tasks after deletion
+        add(LoadTasks());
+      } catch (e) {
+        emit(TodoError(message: e.toString()));
+      }
+    });
+    on<EditTask>((event, emit) async {
+      try {
+        await FirebaseFirestore.instance
+            .collection('todo')
+            .doc(event.id)
+            .update({
+              'title': event.newTitle,
+              'due_date_time': event.newDueDate,
+            });
+
+        add(LoadTasks());
       } catch (e) {
         emit(TodoError(message: e.toString()));
       }

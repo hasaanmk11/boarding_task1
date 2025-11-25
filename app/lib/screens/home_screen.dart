@@ -23,79 +23,108 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A1A),
-      body: BlocBuilder<TodoBlocBloc, TodoBlocState>(
-        builder: (context, state) {
-          if (state is TodoLoaded) {
-            return Column(
-              children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 230,
-                      color: Colors.black,
-                    ),
-                    const TodoSearchBar(),
-                  ],
-                ),
-                const SizedBox(height: 60),
-                StatusCard(
-                  pending: state.tasks.where((t) => !t.isCompleted).length,
-                  completed: state.tasks.where((t) => t.isCompleted).length,
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: state.tasks.isEmpty
-                      ? Center(
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.chat_rounded,
-                                color: Colors.white.withValues(alpha: 0.3),
-                              ),
-                              Text(
-                                "You don’t have any tasks yet",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w900,
+      body: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 230,
+                color: Colors.black,
+              ),
+              const TodoSearchBar(),
+            ],
+          ),
+          const SizedBox(height: 60),
 
-                                  fontFamily: "Poppins",
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              Text(
-                                "Start adding tasks and manage your\n time effectively",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12, // slightly smaller
-                                  fontFamily: "Poppins",
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(10),
-                          itemCount: state.tasks.length,
-                          itemBuilder: (context, index) {
-                            final task = state.tasks[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: TodoCard(task: task),
-                            );
-                          },
+          // status card always visible
+          BlocBuilder<TodoBlocBloc, TodoBlocState>(
+            builder: (context, state) {
+              int pending = 0;
+              int completed = 0;
+
+              if (state is TodoLoaded) {
+                pending = state.tasks.where((t) => !t.isCompleted).length;
+                completed = state.tasks.where((t) => t.isCompleted).length;
+              }
+
+              return StatusCard(pending: pending, completed: completed);
+            },
+          ),
+
+          const SizedBox(height: 10),
+
+          // Only the task list area shows loading / empty / list
+          Expanded(
+            child: BlocBuilder<TodoBlocBloc, TodoBlocState>(
+              builder: (context, state) {
+                if (state is TodoLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blueAccent,
+                      strokeWidth: 2.5,
+                    ),
+                  );
+                }
+
+                if (state is! TodoLoaded) {
+                  return const SizedBox(); // UI remains clean
+                }
+
+                final tasks = state.tasks;
+
+                if (tasks.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.chat_rounded,
+                          size: 38,
+                          color: Colors.white24,
                         ),
-                ),
-              ],
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+                        const SizedBox(height: 8),
+                        const Text(
+                          "You don’t have any tasks yet",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w900,
+                            fontFamily: "Poppins",
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        const Text(
+                          "Start adding tasks and manage your\ntime effectively",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 11,
+                            fontFamily: "Poppins",
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return ListView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    final task = tasks[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: TodoCard(task: task),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

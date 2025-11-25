@@ -11,10 +11,23 @@ class AddTask extends TodoBlocEvent {
   AddTask({required this.title, required this.dueDate});
 }
 
-class UpdateTask extends TodoBlocEvent {
+class UpdateTaskStatus extends TodoBlocEvent {
   final String id;
   final bool isCompleted;
-  UpdateTask({required this.id, required this.isCompleted});
+  UpdateTaskStatus({required this.id, required this.isCompleted});
+}
+
+
+class EditTask extends TodoBlocEvent {
+  final String id;
+  final String newTitle;
+  final String newDueDate;
+
+  EditTask({
+    required this.id,
+    required this.newTitle,
+    required this.newDueDate,
+  });
 }
 
 class DeleteTask extends TodoBlocEvent {

@@ -1,12 +1,30 @@
+import 'package:app/controllers/bloc/todo_bloc_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddTodo extends StatelessWidget {
+class AddTodo extends StatefulWidget {
   const AddTodo({super.key});
 
   @override
+  State<AddTodo> createState() => _AddTodoState();
+}
+
+class _AddTodoState extends State<AddTodo> {
+  final TextEditingController addTaskController = TextEditingController();
+  final ValueNotifier<DateTime?> selectedDateTime = ValueNotifier<DateTime?>(
+    null,
+  );
+
+  @override
+  void dispose() {
+    addTaskController.dispose();
+    selectedDateTime.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController addTaskController = TextEditingController();
     return Padding(
       padding: EdgeInsets.only(
         left: 16,
@@ -38,6 +56,7 @@ class AddTodo extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
+          // TextField persists across rebuilds
           TextField(
             controller: addTaskController,
             decoration: InputDecoration(
@@ -63,14 +82,79 @@ class AddTodo extends StatelessWidget {
             ),
             style: const TextStyle(color: Colors.white),
           ),
+          const SizedBox(height: 12),
+
+          // Only date/time selector rebuilds
+          ValueListenableBuilder<DateTime?>(
+            valueListenable: selectedDateTime,
+            builder: (context, dateTime, _) {
+              return GestureDetector(
+                onTap: () async {
+                  DateTime now = DateTime.now();
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: now,
+                    firstDate: now,
+                    lastDate: DateTime(now.year + 5),
+                  );
+
+                  if (pickedDate != null) {
+                    TimeOfDay? pickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    );
+
+                    if (pickedTime != null) {
+                      selectedDateTime.value = DateTime(
+                        pickedDate.year,
+                        pickedDate.month,
+                        pickedDate.day,
+                        pickedTime.hour,
+                        pickedTime.minute,
+                      );
+                    } else {
+                      selectedDateTime.value = pickedDate;
+                    }
+                  }
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white12,
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white.withOpacity(0.3)),
+                  ),
+                  child: Text(
+                    dateTime != null
+                        ? "Due: ${dateTime.day.toString().padLeft(2, '0')}/"
+                              "${dateTime.month.toString().padLeft(2, '0')}/"
+                              "${dateTime.year} "
+                              "${dateTime.hour.toString().padLeft(2, '0')}:"
+                              "${dateTime.minute.toString().padLeft(2, '0')}"
+                        : "Select Due Date & Time",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 18),
+
           GestureDetector(
             onTap: () async {
               if (addTaskController.text.isNotEmpty) {
-                await FirebaseFirestore.instance.collection("todo").add({
-                  "title": addTaskController.text,
-                });
-                addTaskController.clear(); // Clear after sending
+                BlocProvider.of<TodoBlocBloc>(context).add(
+                  AddTask(
+                    title: addTaskController.text,
+                    dueDate: selectedDateTime.value!.toIso8601String(),
+                  ),
+                );
+
+                addTaskController.clear();
+                selectedDateTime.value = null;
               }
             },
             child: Align(

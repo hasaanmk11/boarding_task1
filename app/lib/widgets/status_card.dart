@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class StatusCard extends StatelessWidget {
-  const StatusCard({super.key});
+  final int pending;
+  final int completed;
+
+  const StatusCard({super.key, required this.pending, required this.completed});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +24,14 @@ class StatusCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(width: 2),
+              const SizedBox(width: 2),
               CircleAvatar(
                 radius: 8,
                 backgroundColor: Colors.grey,
                 child: Center(
                   child: Text(
-                    "1",
-                    style: TextStyle(color: Colors.white, fontSize: 10),
+                    "$pending",
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 ),
               ),
@@ -39,7 +42,7 @@ class StatusCard extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "Complited",
+                  "Completed",
                   style: TextStyle(
                     color: const Color.fromARGB(255, 18, 100, 167),
                     fontFamily: "Poppins",
@@ -47,14 +50,14 @@ class StatusCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(width: 2),
+                const SizedBox(width: 2),
                 CircleAvatar(
                   radius: 10,
                   backgroundColor: Colors.grey,
                   child: Center(
                     child: Text(
-                      "1",
-                      style: TextStyle(color: Colors.white, fontSize: 10),
+                      "$completed",
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
                 ),

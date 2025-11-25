@@ -1,8 +1,12 @@
+import 'package:app/controllers/bloc/todo_bloc_bloc.dart';
 import 'package:app/widgets/add_todo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TodoSearchBar extends StatelessWidget {
-  const TodoSearchBar({super.key});
+  TodoSearchBar({super.key});
+
+  final ValueNotifier<String> searchText = ValueNotifier("");
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +17,33 @@ class TodoSearchBar extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "🚀 Search...",
-                hintStyle: const TextStyle(color: Colors.white54),
-                filled: true,
-                fillColor: const Color.fromARGB(255, 46, 46, 46),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-              style: const TextStyle(color: Colors.white),
+            child: ValueListenableBuilder(
+              valueListenable: searchText,
+              builder: (context, value, _) {
+                return TextField(
+                  onChanged: (text) {
+                    searchText.value = text;
+
+                    context.read<TodoBlocBloc>().add(SearchTasks(text));
+                  },
+                  decoration: InputDecoration(
+                    hintText: "🚀 Search...",
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 46, 46, 46),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.white),
+                );
+              },
             ),
           ),
+
           const SizedBox(width: 10),
+
           ElevatedButton.icon(
             onPressed: () {
               showModalBottomSheet(

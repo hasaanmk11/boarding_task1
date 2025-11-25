@@ -9,8 +9,12 @@ class TodoLoading extends TodoBlocState {}
 
 class TodoLoaded extends TodoBlocState {
   final List<TaskModel> tasks;
-  TodoLoaded({required this.tasks});
+  final List<TaskModel> allTasks;
+
+  TodoLoaded({required this.tasks, required this.allTasks});
 }
+
+
 
 class TodoError extends TodoBlocState {
   final String message;

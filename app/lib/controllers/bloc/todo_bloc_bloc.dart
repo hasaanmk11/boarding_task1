@@ -8,6 +8,7 @@ part 'todo_bloc_state.dart';
 
 class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
   TodoBlocBloc() : super(TodoInitial()) {
+    
     on<LoadTasks>((event, emit) async {
       emit(TodoLoading());
       try {
@@ -15,7 +16,8 @@ class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
             .collection("todo")
             .orderBy("due_date_time")
             .get();
-        final tasks = snapshot.docs.map((doc) {
+
+        final allTasks = snapshot.docs.map((doc) {
           final data = doc.data();
           return TaskModel(
             id: doc.id,
@@ -24,11 +26,15 @@ class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
             isCompleted: data['isCompleted'] ?? false,
           );
         }).toList();
-        emit(TodoLoaded(tasks: tasks));
+
+        emit(TodoLoaded(tasks: allTasks, allTasks: allTasks));
       } catch (e) {
         emit(TodoError(message: e.toString()));
       }
     });
+
+
+    
 
     on<AddTask>((event, emit) async {
       await FirebaseFirestore.instance.collection('todo').add({
@@ -51,7 +57,7 @@ class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
       }
     });
 
-    // Delete task
+    
     on<DeleteTask>((event, emit) async {
       try {
         await FirebaseFirestore.instance
@@ -78,5 +84,18 @@ class TodoBlocBloc extends Bloc<TodoBlocEvent, TodoBlocState> {
         emit(TodoError(message: e.toString()));
       }
     });
+
+    on<SearchTasks>((event, emit) {
+      if (state is TodoLoaded) {
+        final loaded = state as TodoLoaded;
+
+        final filtered = loaded.allTasks.where((task) {
+          return task.title.toLowerCase().contains(event.query.toLowerCase());
+        }).toList();
+
+        emit(TodoLoaded(tasks: filtered, allTasks: loaded.allTasks));
+      }
+    });
+
   }
 }

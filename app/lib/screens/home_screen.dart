@@ -33,12 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 230,
                 color: Colors.black,
               ),
-              const TodoSearchBar(),
+               TodoSearchBar(),
             ],
           ),
           const SizedBox(height: 60),
 
-          // status card always visible
           BlocBuilder<TodoBlocBloc, TodoBlocState>(
             builder: (context, state) {
               int pending = 0;
@@ -55,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 10),
 
-          // Only the task list area shows loading / empty / list
           Expanded(
             child: BlocBuilder<TodoBlocBloc, TodoBlocState>(
               builder: (context, state) {
@@ -69,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 if (state is! TodoLoaded) {
-                  return const SizedBox(); // UI remains clean
+                  return const SizedBox();
                 }
 
                 final tasks = state.tasks;

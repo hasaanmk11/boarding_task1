@@ -30,6 +30,12 @@ class EditTask extends TodoBlocEvent {
   });
 }
 
+class SearchTasks extends TodoBlocEvent {
+  final String query;
+  SearchTasks(this.query);
+}
+
+
 class DeleteTask extends TodoBlocEvent {
   final String id;
   DeleteTask({required this.id});

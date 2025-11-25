@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                       style: TextStyle(
                         color: const Color.fromARGB(255, 83, 158, 220),
                         fontFamily: "Poppins",
-                        fontSize: 16,
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -83,7 +83,10 @@ class HomeScreen extends StatelessWidget {
                       radius: 8,
                       backgroundColor: Colors.grey,
                       child: Center(
-                        child: Text("1", style: TextStyle(color: Colors.white)),
+                        child: Text(
+                          "1",
+                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        ),
                       ),
                     ),
                   ],
@@ -97,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           color: const Color.fromARGB(255, 18, 100, 167),
                           fontFamily: "Poppins",
-                          fontSize: 16,
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -108,12 +111,63 @@ class HomeScreen extends StatelessWidget {
                         child: Center(
                           child: Text(
                             "1",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white, fontSize: 10),
                           ),
                         ),
                       ),
                     ],
                   ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: const Color.fromARGB(255, 46, 46, 46),
+            ),
+            width: MediaQuery.of(context).size.width - 20,
+            height: 90,
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.circle_outlined, size: 26, color: Colors.white),
+                    const SizedBox(width: 12),
+                    Text(
+                      "Do Math Homework",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontFamily: "Poppins",
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.edit_outlined,
+                        size: 20,
+                        color: Color.fromARGB(110, 255, 255, 255),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.delete_outline,
+                        size: 22,
+                        color: Color.fromARGB(110, 255, 255, 255),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

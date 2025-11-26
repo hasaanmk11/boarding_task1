@@ -44,7 +44,7 @@ class TodoSearchBar extends StatelessWidget {
 
           const SizedBox(width: 10),
 
-          ElevatedButton.icon(
+          ElevatedButton(
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -56,15 +56,26 @@ class TodoSearchBar extends StatelessWidget {
                 builder: (context) => const AddTodo(),
               );
             },
-            icon: const Icon(Icons.add, size: 16),
-            label: const Text("Add"),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF1E6F9F),
               foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              minimumSize: const Size(85, 40),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(6),
               ),
+              elevation: 2,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text(
+                  "Add",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(width: 6),
+                Icon(Icons.add_circle_outline_rounded, size: 16),
+              ],
             ),
           ),
         ],

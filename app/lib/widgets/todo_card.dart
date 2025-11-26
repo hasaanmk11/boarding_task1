@@ -25,10 +25,10 @@ class TodoCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        color: const Color.fromARGB(255, 46, 46, 46),
+        color: const Color.fromARGB(255, 27, 27, 27),
       ),
       width: double.infinity,
-      height: 90,
+      height: 80,
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -222,7 +222,6 @@ void showEditTaskSheet(BuildContext context, TaskModel task) {
             ),
             const SizedBox(height: 16),
 
-            // Title text field
             TextField(
               controller: titleController,
               decoration: InputDecoration(
@@ -308,7 +307,6 @@ void showEditTaskSheet(BuildContext context, TaskModel task) {
 
             const SizedBox(height: 20),
 
-            // Submit button
             SizedBox(
               width: double.infinity,
               height: 45,

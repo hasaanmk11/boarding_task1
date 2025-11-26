@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: const Color.fromARGB(255, 16, 16, 16),
       body: Column(
         children: [
           Stack(
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 230,
                 color: Colors.black,
               ),
-               TodoSearchBar(),
+              TodoSearchBar(),
             ],
           ),
           const SizedBox(height: 60),

@@ -1,6 +1,6 @@
 import 'package:app/controllers/bloc/todo_bloc_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddTodo extends StatefulWidget {
@@ -56,7 +56,7 @@ class _AddTodoState extends State<AddTodo> {
             ),
           ),
           const SizedBox(height: 16),
-          // TextField persists across rebuilds
+
           TextField(
             controller: addTaskController,
             decoration: InputDecoration(
@@ -68,14 +68,14 @@ class _AddTodoState extends State<AddTodo> {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide(
-                  color: Colors.white.withOpacity(0.3),
+                  color: Colors.white.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   width: 2,
                 ),
               ),
@@ -84,7 +84,6 @@ class _AddTodoState extends State<AddTodo> {
           ),
           const SizedBox(height: 12),
 
-          // Only date/time selector rebuilds
           ValueListenableBuilder<DateTime?>(
             valueListenable: selectedDateTime,
             builder: (context, dateTime, _) {
@@ -125,7 +124,9 @@ class _AddTodoState extends State<AddTodo> {
                   decoration: BoxDecoration(
                     color: Colors.white12,
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.white.withOpacity(0.3)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Text(
                     dateTime != null

@@ -27,7 +27,7 @@ class StatusCard extends StatelessWidget {
               const SizedBox(width: 2),
               CircleAvatar(
                 radius: 8,
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.white12,
                 child: Center(
                   child: Text(
                     "$pending",
@@ -53,7 +53,7 @@ class StatusCard extends StatelessWidget {
                 const SizedBox(width: 2),
                 CircleAvatar(
                   radius: 10,
-                  backgroundColor: Colors.grey,
+                  backgroundColor: Colors.white12,
                   child: Center(
                     child: Text(
                       "$completed",

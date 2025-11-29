@@ -1,7 +1,11 @@
+import 'package:app/const/colors.dart';
 import 'package:app/controllers/bloc/todo_bloc_bloc.dart';
+
+import 'package:app/widgets/divider_widgets.dart';
 import 'package:app/widgets/search_bar.dart';
 import 'package:app/widgets/status_card.dart';
-import 'package:app/widgets/todo_card.dart';
+
+import 'package:app/widgets/todo_card_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 16, 16, 16),
+      backgroundColor: AppColors.appBgColor,
       body: Column(
         children: [
           Stack(
@@ -73,52 +77,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 final tasks = state.tasks;
 
                 if (tasks.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.chat_rounded,
-                          size: 38,
-                          color: Colors.white24,
+                  return Column(
+                    children: [
+                      DividerWidget(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.assignment_outlined,
+                              size: 38,
+                              color: Colors.white12,
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              "You don’t have any tasks yet",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white30,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: "Poppins",
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            const Text(
+                              "Start adding tasks and manage your\ntime effectively",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white30,
+                                fontSize: 11,
+                                fontFamily: "Poppins",
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          "You don’t have any tasks yet",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: "Poppins",
-                          ),
-                        ),
-                        const SizedBox(height: 3),
-                        const Text(
-                          "Start adding tasks and manage your\ntime effectively",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 11,
-                            fontFamily: "Poppins",
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 }
 
-                return ListView.builder(
-                  padding: const EdgeInsets.all(10),
-                  itemCount: tasks.length,
-                  itemBuilder: (context, index) {
-                    final task = tasks[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: TodoCard(task: task),
-                    );
-                  },
-                );
+                return TodoCradGenerator(tasks: tasks);
               },
             ),
           ),

@@ -64,7 +64,7 @@ class _AddTodoState extends State<AddTodo> {
               hintStyle: const TextStyle(color: Colors.white),
               filled: true,
               isDense: true,
-              fillColor: Colors.white12,
+              fillColor: Colors.transparent,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide(
@@ -122,7 +122,7 @@ class _AddTodoState extends State<AddTodo> {
                     horizontal: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white12,
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(
                       color: Colors.white.withValues(alpha: 0.3),

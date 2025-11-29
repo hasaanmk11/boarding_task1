@@ -1,3 +1,4 @@
+import 'package:app/const/colors.dart';
 import 'package:app/controllers/bloc/todo_bloc_bloc.dart';
 import 'package:app/widgets/add_todo.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,13 @@ class TodoSearchBar extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     hintText: "🚀 Search...",
-                    hintStyle: const TextStyle(color: Colors.white54),
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 10,
+                    ),
+                    hintStyle: const TextStyle(color: Colors.white30),
                     filled: true,
-                    fillColor: const Color.fromARGB(255, 46, 46, 46),
+                    fillColor: AppColors.searchBarColor,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
                       borderSide: BorderSide.none,
@@ -57,7 +62,7 @@ class TodoSearchBar extends StatelessWidget {
               );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1E6F9F),
+              backgroundColor: AppColors.addButtonColor,
               foregroundColor: Colors.white,
               minimumSize: const Size(85, 40),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),

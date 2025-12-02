@@ -8,6 +8,8 @@ class StatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int total = pending + completed;
+
     return Padding(
       padding: const EdgeInsets.only(top: 3, left: 15),
       child: Row(
@@ -37,6 +39,7 @@ class StatusCard extends StatelessWidget {
               ),
             ],
           ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -56,7 +59,7 @@ class StatusCard extends StatelessWidget {
                   backgroundColor: Colors.white12,
                   child: Center(
                     child: Text(
-                      "$completed",
+                      total == 0 ? "0/0" : "$completed/$total",
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),

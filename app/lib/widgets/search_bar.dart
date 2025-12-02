@@ -54,6 +54,7 @@ class TodoSearchBar extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
+                showDragHandle: false,
                 backgroundColor: const Color(0xFF2E2E2E),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(top: Radius.circular(18)),

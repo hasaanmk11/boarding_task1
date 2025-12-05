@@ -57,8 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
 
-          const SizedBox(height: 10),
-
           Expanded(
             child: BlocBuilder<TodoBlocBloc, TodoBlocState>(
               builder: (context, state) {
@@ -84,19 +82,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         DividerWidget(),
                         const SizedBox(height: 50),
-                        Icon(
-                          Icons.assignment_outlined,
-                          size: 38,
-                          color: Colors.white12,
+                        SizedBox(
+                          width: 53,
+                          height: 53,
+                          child: Opacity(
+                            opacity: 0.4,
+                            child: Image.asset("assets/empty_icon.png"),
+                          ),
                         ),
+
                         const SizedBox(height: 8),
                         const Text(
-                          "You don’t have any tasks yet",
+                          "You don’t have any tasks yet.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white30,
+                            color: Colors.white38,
                             fontSize: 13,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w700,
                             fontFamily: "Poppins",
                           ),
                         ),
@@ -106,7 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white30,
-                            fontSize: 11,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+
                             fontFamily: "Poppins",
                           ),
                         ),

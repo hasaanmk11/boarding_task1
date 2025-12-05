@@ -1,6 +1,7 @@
 import 'package:app/controllers/validator/validator_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class AddTodo extends StatefulWidget {
   const AddTodo({super.key});
@@ -68,7 +69,6 @@ class _AddTodoState extends State<AddTodo> {
             ),
             const SizedBox(height: 16),
 
-            
             BlocBuilder<ValidatorCubit, ValidatorState>(
               builder: (_, state) {
                 String? taskError = state is ValidatorError
@@ -85,9 +85,13 @@ class _AddTodoState extends State<AddTodo> {
                     hintText: "Enter task...",
                     hintStyle: const TextStyle(color: Colors.white54),
                     errorText: taskError,
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 10,
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
-                      borderSide: const BorderSide(color: Colors.white24),
+                      borderSide: const BorderSide(color: Colors.white54),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -157,8 +161,9 @@ class _AddTodoState extends State<AddTodo> {
                             ),
                             child: Text(
                               dateTime != null
-                                  ? "Due: ${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}"
+                                  ? "Due: ${DateFormat('dd MMM yyyy • hh:mm a').format(dateTime)}"
                                   : "Select Due Date & Time",
+
                               style: TextStyle(
                                 color: dateError != null
                                     ? Colors.red
@@ -200,11 +205,7 @@ class _AddTodoState extends State<AddTodo> {
                         selectedDate: selectedDateTime.value,
                       );
                     },
-                    child: Icon(
-                      Icons.send,
-                      size: 24,
-                      color: isEnabled ? Colors.lightBlue : Colors.grey,
-                    ),
+                    child: SizedBox(child: Image.asset("assets/send.png")),
                   );
                 },
               ),

@@ -1,10 +1,8 @@
 import 'package:app/const/colors.dart';
 import 'package:app/controllers/bloc/todo_bloc_bloc.dart';
-
 import 'package:app/widgets/divider_widgets.dart';
 import 'package:app/widgets/search_bar.dart';
 import 'package:app/widgets/status_card.dart';
-
 import 'package:app/widgets/todo_card_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,10 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-=======
       resizeToAvoidBottomInset: true,
->>>>>>> fix-ui
       backgroundColor: AppColors.appBgColor,
       body: Column(
         children: [
@@ -79,46 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 final tasks = state.tasks;
 
                 if (tasks.isEmpty) {
-<<<<<<< HEAD
-                  return Column(
-                    children: [
-                      DividerWidget(),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 50),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.assignment_outlined,
-                              size: 38,
-                              color: Colors.white12,
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              "You don’t have any tasks yet",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white30,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: "Poppins",
-                              ),
-                            ),
-                            const SizedBox(height: 3),
-                            const Text(
-                              "Start adding tasks and manage your\ntime effectively",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white30,
-                                fontSize: 11,
-                                fontFamily: "Poppins",
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-=======
                   return SingleChildScrollView(
                     padding: const EdgeInsets.only(top: 10),
                     child: Column(
@@ -133,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Image.asset("assets/empty_icon.png"),
                           ),
                         ),
-
                         const SizedBox(height: 8),
                         const Text(
                           "You don’t have any tasks yet.",
@@ -153,13 +107,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white30,
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
-
                             fontFamily: "Poppins",
                           ),
                         ),
                       ],
                     ),
->>>>>>> fix-ui
                   );
                 }
 

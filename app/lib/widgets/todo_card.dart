@@ -97,22 +97,14 @@ class TodoCard extends StatelessWidget {
                 onTap: () {
                   showEditTaskSheet(context, task);
                 },
-                child: const Icon(
-                  Icons.edit_outlined,
-                  size: 20,
-                  color: Color.fromARGB(110, 255, 255, 255),
-                ),
+                child: SizedBox(child: Image.asset("assets/edit-2.png")),
               ),
-              const SizedBox(width: 6),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   showDeleteDialog(context, task.id);
                 },
-                child: const Icon(
-                  Icons.delete_outline,
-                  size: 22,
-                  color: Color.fromARGB(110, 255, 255, 255),
-                ),
+                child: SizedBox(child: Image.asset("assets/Vector.png")),
               ),
             ],
           ),
@@ -293,8 +285,10 @@ void showEditTaskSheet(BuildContext context, TaskModel task) {
                         Text(
                           selectedDate == null
                               ? "Pick due date"
-                              : "${selectedDate.day}-${selectedDate.month}-${selectedDate.year} "
-                                    "${selectedDate.hour}:${selectedDate.minute.toString().padLeft(2, '0')}",
+                              : DateFormat(
+                                  'dd MMM yyyy • hh:mm a',
+                                ).format(selectedDate),
+
                           style: const TextStyle(color: Colors.white),
                         ),
                         const Icon(Icons.calendar_month, color: Colors.white),

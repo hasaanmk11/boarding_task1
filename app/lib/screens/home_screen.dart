@@ -26,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
+=======
+      resizeToAvoidBottomInset: true,
+>>>>>>> fix-ui
       backgroundColor: AppColors.appBgColor,
       body: Column(
         children: [
@@ -56,8 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
 
-          const SizedBox(height: 10),
-
           Expanded(
             child: BlocBuilder<TodoBlocBloc, TodoBlocState>(
               builder: (context, state) {
@@ -77,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 final tasks = state.tasks;
 
                 if (tasks.isEmpty) {
+<<<<<<< HEAD
                   return Column(
                     children: [
                       DividerWidget(),
@@ -115,6 +118,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
+=======
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Column(
+                      children: [
+                        DividerWidget(),
+                        const SizedBox(height: 50),
+                        SizedBox(
+                          width: 53,
+                          height: 53,
+                          child: Opacity(
+                            opacity: 0.4,
+                            child: Image.asset("assets/empty_icon.png"),
+                          ),
+                        ),
+
+                        const SizedBox(height: 8),
+                        const Text(
+                          "You don’t have any tasks yet.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white38,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "Poppins",
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        const Text(
+                          "Start adding tasks and manage your\ntime effectively",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white30,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+
+                            fontFamily: "Poppins",
+                          ),
+                        ),
+                      ],
+                    ),
+>>>>>>> fix-ui
                   );
                 }
 
